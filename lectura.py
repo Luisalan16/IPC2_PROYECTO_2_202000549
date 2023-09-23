@@ -2,7 +2,7 @@ import easygui
 import xml.etree.ElementTree as ET
 
 
-def lectura(Dron, Sistemas, Contenido, Alturas, Mensajes, Instrucciones):
+def lectura(Drones, Sistemas, Contenido, Alturas, Mensajes, Instrucciones):
     try:
         archivo =  easygui.fileopenbox(title="Seleccione el archivo", filetypes=("Archivos xml","*.xml"))
         tree = ET.parse(archivo)
@@ -12,7 +12,7 @@ def lectura(Dron, Sistemas, Contenido, Alturas, Mensajes, Instrucciones):
         for lista_drones in root.findall('listaDrones'):
             for drones in lista_drones.findall('dron'):
                 dron = drones.text
-                Dron.agregar_dron(dron)
+                Drones.agregar_dron(dron)
         
         """ Lista sistemas drones """
         for lista_sistema_drones in root.findall('listaSistemasDrones'):

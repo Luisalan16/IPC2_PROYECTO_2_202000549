@@ -3,9 +3,12 @@ from tkinter import messagebox, PhotoImage
 import xml.etree.ElementTree as ET
 from lectura import lectura
 from gestion_drones import GestionDrones
+""" from gestion_sistemas import GestionSistemas """
+from gestion_mensajes import GestionMensajes
+from linked_lists import lista_drones
 
 
-""" Dron = lista_drones() """
+Drones = lista_drones()
 
 
 
@@ -14,11 +17,15 @@ from gestion_drones import GestionDrones
 
 class app:
 
-     #-------------Ventana Gestion Maquinas--------------------
-    def GestionDrones(self):
-        GestionDrones(""" Drones """)
+    #-------------Ventana Gestion Drones--------------------
+    def GestionDron(self):
+        GestionDrones()
+    
+    #-------------Ventana Gestion Mensajes--------------------
+    def GestionMsj(self):
+        GestionMensajes()
 
-     #---------Método para salir de la aplicación--------------
+    #---------Método para salir de la aplicación--------------
     def Salir(self):
         opcion = messagebox.askquestion("Salir","¿Deseas salir del Menú?")
         if opcion =="yes":
@@ -26,9 +33,9 @@ class app:
 
     #-------------Método para cargar archivos-----------------
     def CargarArchivo(self):
-        lectura(""" Drones, Sistemas, Mensajes """)
+        lectura()
         
-        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=70)
+        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#ffa69e", fg="black", font=("Poppins", 14), command=self.GestionDron).place(x=500, y=70)
         sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=130)
         mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=180)
 
@@ -49,12 +56,14 @@ class app:
         logo = tk.Label(self.Ventana,  image=img,bg="#5e6472").place(x=100, y=100)
         img2 = tk.PhotoImage(file=".\iconos\guatemala.png")
         logo2 = tk.Label(self.Ventana,  image=img2,bg="#5e6472").place(x=700, y=5)
+
+        
         """ Botones """
         Salir = tk.Button(self.Ventana, text="Salir",bg="#5e6472", fg="white", font=("Poppins", 14), command=self.Salir).place(x=730, y=515)
         Cargar = tk.Button(self.Ventana, text="Cargar Archivo",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.CargarArchivo).place(x=30, y=90)
-        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14)).place(x=600, y=90)
+        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron).place(x=600, y=90)
         sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14)).place(x=600, y=170)
-        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14)).place(x=600, y=250)
+        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj).place(x=600, y=250)
 
         """ Para que todo sea visible """
         self.Ventana.mainloop()
