@@ -5,10 +5,11 @@ from lectura import lectura
 from gestion_drones import GestionDrones
 """ from gestion_sistemas import GestionSistemas """
 from gestion_mensajes import GestionMensajes
-from linked_lists import lista_drones
+from linked_lists import lista_drones, lista_sistemas
 
 
 Drones = lista_drones()
+Sistemas = lista_sistemas()
 
 
 
@@ -33,7 +34,7 @@ class app:
 
     #-------------Método para cargar archivos-----------------
     def CargarArchivo(self):
-        lectura()
+        lectura(Drones, Sistemas, Contenido, Alturas, Mensajes, Instrucciones)
         
         drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#ffa69e", fg="black", font=("Poppins", 14), command=self.GestionDron).place(x=500, y=70)
         sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=130)
