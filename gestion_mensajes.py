@@ -1,4 +1,9 @@
 import tkinter as tk
+from tkinter import *
+from linked_lists import lista_mensajes
+
+
+mi_lista = lista_mensajes()
 
 
 class GestionMensajes:
@@ -7,8 +12,9 @@ class GestionMensajes:
     def Regresar(self):
         self.Ventana.destroy()
 
-    def __init__(self):
+    def __init__(self, Mensaje):
 
+        self.Mensaje = Mensaje
         self.Ventana = tk.Toplevel()
         self.Ventana.title("[GESTIÓN DE MENSAJES]")
         self.Ventana.geometry("800x600")

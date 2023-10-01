@@ -1,15 +1,20 @@
 import tkinter as tk
+from tkinter import *
 from tkinter import messagebox, PhotoImage
 import xml.etree.ElementTree as ET
 from lectura import lectura
 from gestion_drones import GestionDrones
-""" from gestion_sistemas import GestionSistemas """
+from gestion_sistemas import GestionSistemas
 from gestion_mensajes import GestionMensajes
-from linked_lists import lista_drones, lista_sistemas
+from linked_lists import lista_drones, lista_sistemas, lista_alturas, lista_contenidos, lista_mensajes, lista_instrucciones
 
 
 Drones = lista_drones()
 Sistemas = lista_sistemas()
+Contenidos = lista_contenidos()
+Alturas = lista_alturas()
+Mensajes = lista_mensajes()
+Instrucciones = lista_instrucciones()
 
 
 
@@ -20,11 +25,15 @@ class app:
 
     #-------------Ventana Gestion Drones--------------------
     def GestionDron(self):
-        GestionDrones()
+        GestionDrones(Drones)
     
     #-------------Ventana Gestion Mensajes--------------------
     def GestionMsj(self):
-        GestionMensajes()
+        GestionMensajes(Mensajes)
+
+     #-------------Ventana Gestion Mensajes--------------------
+    def GestionSistemasDrones(self):
+        GestionSistemas(Sistemas)
 
     #---------Método para salir de la aplicación--------------
     def Salir(self):
@@ -34,11 +43,11 @@ class app:
 
     #-------------Método para cargar archivos-----------------
     def CargarArchivo(self):
-        lectura(Drones, Sistemas, Contenido, Alturas, Mensajes, Instrucciones)
+        lectura(Drones, Sistemas, Contenidos, Alturas, Mensajes, Instrucciones)
         
-        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#ffa69e", fg="black", font=("Poppins", 14), command=self.GestionDron).place(x=500, y=70)
-        sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=130)
-        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#ffa69e", fg="black", font=("Poppins", 14)).place(x=500, y=180)
+        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron, state=NORMAL).place(x=600, y=90)
+        sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionSistemasDrones).place(x=600, y=170)
+        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj, state=NORMAL).place(x=600, y=250)
 
 
     """ Aquí empieza mi ventana principal """
@@ -62,9 +71,25 @@ class app:
         """ Botones """
         Salir = tk.Button(self.Ventana, text="Salir",bg="#5e6472", fg="white", font=("Poppins", 14), command=self.Salir).place(x=730, y=515)
         Cargar = tk.Button(self.Ventana, text="Cargar Archivo",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.CargarArchivo).place(x=30, y=90)
-        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron).place(x=600, y=90)
-        sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14)).place(x=600, y=170)
-        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj).place(x=600, y=250)
-
+        drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron, state=DISABLED).place(x=600, y=90)
+        sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14),command=self.GestionSistemasDrones, state=DISABLED).place(x=600, y=170)
+        mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj, state=DISABLED).place(x=600, y=250)
+        Ayuda = tk.Button(self.Ventana, text="Ayuda",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.Txt).place(x=600, y=370)
         """ Para que todo sea visible """
         self.Ventana.mainloop()
+
+    def Txt(self):
+        txt = """
+        PROYECTO 2 | IPC2 | 202000549
+
+        LINK DEL REPOSITORIO:
+        -> https://github.com/Luisalan16/IPC2_PROYECTO_2_202000549/tree/master
+
+        LINK DRIVE:
+        -> https://drive.google.com/drive/folders/1OOFc9fd4TtNlrQH_DqZFZW__b6ZkT_dK?usp=share_link
+        """
+        Link = open("./Extra/Autor_202000549.txt","w+")
+        Link.write(txt)
+        Link.close()
+        messagebox.showinfo(message="Archivo Creado!, Revise la carpeta 'Extra'", title="Información")
+        print("Archivo con datos del autor creado exitosamente!")

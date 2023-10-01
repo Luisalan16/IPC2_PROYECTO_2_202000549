@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from linked_lists import lista_drones
+from ver_listadron import lista_d
 
 mi_lista = lista_drones()
 
@@ -12,12 +13,15 @@ class GestionDrones:
         self.Ventana.destroy()
 
     def ver_Listado(self):
+        lista_d(self.Dron)
         print(mi_lista.print_drones())
+        self.Dron.gaficar_drones()
 
     def Entry(self): #VENTANITA PARA EL ENTRY
         root = tk.Toplevel(self.Ventana)
         
-        Entrada1 = tk.Entry(root, font=("Poppins", 12)).place(x=100, y=10)
+        Entrada1 = tk.Entry(root, font=("Poppins", 12))
+        Entrada1.place(x=100, y=10)
         """ Entrada1.grid(row=0, column=1) """
         Nombre = tk.Label(root,text="Nombre",bg="#DA4167",fg="white", font=("Poppins", 12)).place(x=10, y=10)
         """ Numero.grid(row=0, column=0) """
@@ -26,17 +30,18 @@ class GestionDrones:
     
         def agregar_dron():
             try:
-                Entradaa1 = str(Entrada1.get)
-                mi_lista.insertar_dron(Entradaa1)
-                print(mi_lista.imprimirTexto())
+                Entradaa1 = str(Entrada1.get())
+                self.Dron.insertar_dron(Entradaa1)
+                """ print(mi_lista.print_drones()) """
             except ValueError:
-                messagebox.showerror
+                messagebox.showerror()
                 
         Agregar1 = tk.Button(root, text="Agregar",bg="#5E6472", fg="white", font=("Poppins", 12), command=agregar_dron).place(x=100, y=60)
         root.mainloop()
 
-    def __init__(self):
+    def __init__(self, Dron):
 
+        self.Dron = Dron
         self.Ventana = tk.Toplevel()
         self.Ventana.title("[GESTIÓN DE DRONES]")
         self.Ventana.geometry("800x600")

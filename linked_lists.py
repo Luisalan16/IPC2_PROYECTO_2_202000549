@@ -1,4 +1,4 @@
-
+import graphviz
 """ Nodo y Lista para Drones """
 class Drones:
 
@@ -7,11 +7,11 @@ class Drones:
         self.siguiente = None
 
     def verDron(self):
-        return "Dron: " + str(self.valor)
+        return  str(self.valor) + "\n"
     
 class lista_drones():
 
-    def __inint__(self):
+    def __init__(self):
         self.cabeza = None
 
     def insertar_dron(self, valor):
@@ -28,10 +28,26 @@ class lista_drones():
     def print_drones(self):
         tmp = self.cabeza
         texto = ""
+        contador = 1
         while tmp is not None:
-            texto += tmp.verDron()
+            texto += f'{contador}. {tmp.verDron()}'
             tmp = tmp.siguiente
+            contador += 1
         return texto
+    
+    def gaficar_drones(self):
+        dot = graphviz.Digraph('ListaDrones')
+        tmp = self.cabeza
+        contador = 1
+
+        while tmp is not None:
+            dot.node(f'{contador}', tmp.verDron())
+            if tmp.siguiente is not None:
+                dot.edge(f'{contador}', f'{contador+1}')
+            tmp = tmp.siguiente
+            contador += 1
+
+        dot.render('Lista_drones', format='png', view=True)
 
 """ Nodo y Lista para Sistemas """
 class Sistemas:
@@ -43,7 +59,7 @@ class Sistemas:
         self.siguiente = None
 
     def verSistemas(self):
-        return "Nombre: " + str(self.nombre) + "\n" + "Altura: " + str(self.altura) + "\n" + "Cantidad: " + str(self.cantidad)
+        return "Nombre: " + str(self.nombre) +";" + "\t" + "Altura: " + str(self.altura) +";" + "\t" + "Cantidad: " + str(self.cantidad) + "\n"
     
 class lista_sistemas():
 
@@ -64,10 +80,26 @@ class lista_sistemas():
     def print_sistemas(self):
         tmp = self.cabeza
         texto = ""
+        contador = 1
         while tmp is not None:
-            texto += tmp.verSistemas()
+            texto += f'{contador}. {tmp.verSistemas()}'
             tmp = tmp.siguiente
+            contador += 1
         return texto
+    
+    def gaficar_sistemas(self):
+        dot = graphviz.Digraph('ListaSistemas')
+        tmp = self.cabeza
+        contador = 1
+
+        while tmp is not None:
+            dot.node(f'{contador}', tmp.verSistemas())
+            if tmp.siguiente is not None:
+                dot.edge(f'{contador}', f'{contador+1}')
+            tmp = tmp.siguiente
+            contador += 1
+
+        dot.render('Lista_sitemas', format='png', view=True)
     
 """ Nodo y Lista para Contenidos """
 class Contenidos:
@@ -186,7 +218,7 @@ class Instrucciones:
         return str(self.valor) + "\n" + str(self.instruccion)
     
 
-class lista_mensajes():
+class lista_instrucciones():
 
     def __init__(self):
         self.cabeza = None
