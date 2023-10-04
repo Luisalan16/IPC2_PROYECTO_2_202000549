@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, PhotoImage
 import xml.etree.ElementTree as ET
-from lectura import lectura
+from lectura import lectura, generar_xml
 from gestion_drones import GestionDrones
 from gestion_sistemas import GestionSistemas
 from gestion_mensajes import GestionMensajes
@@ -25,15 +25,19 @@ class app:
 
     #-------------Ventana Gestion Drones--------------------
     def GestionDron(self):
-        GestionDrones(Drones)
+        GestionDrones(Drones, Alturas)
     
     #-------------Ventana Gestion Mensajes--------------------
     def GestionMsj(self):
-        GestionMensajes(Mensajes)
+        GestionMensajes(Mensajes, Instrucciones)
 
      #-------------Ventana Gestion Mensajes--------------------
     def GestionSistemasDrones(self):
         GestionSistemas(Sistemas)
+    
+     #-------------Ventana Gestion Mensajes--------------------
+    def xml_file(self):
+        generar_xml(Drones, Sistemas, Mensajes)
 
     #---------Método para salir de la aplicación--------------
     def Salir(self):
@@ -48,7 +52,7 @@ class app:
         drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron, state=NORMAL).place(x=600, y=90)
         sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionSistemasDrones).place(x=600, y=170)
         mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj, state=NORMAL).place(x=600, y=250)
-
+        generar = tk.Button(self.Ventana, text="Generar archivo",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.xml_file, state=NORMAL).place(x=600, y=330)
 
     """ Aquí empieza mi ventana principal """
     def __init__(self):
@@ -74,7 +78,8 @@ class app:
         drones = tk.Button(self.Ventana, text = "Gestion Drones", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionDron, state=DISABLED).place(x=600, y=90)
         sistemas = tk.Button(self.Ventana, text = "Gestion Sistemas", bg="#5e6472", fg="white", font=("Poppins", 14),command=self.GestionSistemasDrones, state=DISABLED).place(x=600, y=170)
         mensajes = tk.Button(self.Ventana, text = "Gestion Mensajes", bg="#5e6472", fg="white", font=("Poppins", 14), command=self.GestionMsj, state=DISABLED).place(x=600, y=250)
-        Ayuda = tk.Button(self.Ventana, text="Ayuda",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.Txt).place(x=600, y=370)
+        Ayuda = tk.Button(self.Ventana, text="Ayuda",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.Txt).place(x=600, y=410)
+        generar = tk.Button(self.Ventana, text="Generar archivo",bg="#5e6472",fg="white", font=("Poppins", 14), command=self.xml_file, state=DISABLED).place(x=600, y=330)
         """ Para que todo sea visible """
         self.Ventana.mainloop()
 

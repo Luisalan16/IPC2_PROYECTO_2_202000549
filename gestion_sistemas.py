@@ -3,7 +3,7 @@ from tkinter import messagebox
 from linked_lists import lista_sistemas
 from ver_listadosistemas import lista_sis
 
-mi_lista = lista_sistemas
+mi_lista = lista_sistemas()
 
 class GestionSistemas:
 
@@ -21,7 +21,7 @@ class GestionSistemas:
         self.Sistema = Sistema
         self.Ventana = tk.Toplevel()
         self.Ventana.title("[GESTIÓN SISTEMAS DE DRONES]")
-        self.Ventana.geometry("800x600")
+        self.Ventana.geometry("600x200")
         self.Ventana.configure(bg="#6e44ff")
         self.Ventana.resizable(0,0)
 
@@ -30,6 +30,6 @@ class GestionSistemas:
 
         """ Botones """
         listado = tk.Button(self.Ventana, text="Ver listado",bg="#0cca4a", fg="white",font=("Poppins", 14), command=self.ver_Listado).place(x=20, y=90)
-        Salir = tk.Button(self.Ventana, text="Regresar",bg="#0cca4a", fg="white", font=("Poppins", 14), command=self.Regresar).place(x=670, y=515)
+        Salir = tk.Button(self.Ventana, text="Regresar",bg="#0cca4a", fg="white", font=("Poppins", 14), command=self.Regresar).place(x=150, y=90)
 
         self.Ventana.mainloop()

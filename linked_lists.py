@@ -49,6 +49,22 @@ class lista_drones():
 
         dot.render('Lista_drones', format='png', view=True)
 
+    def ordenar_alfabeticamente(self):
+        if self.cabeza is None:
+            return
+        
+        sorted = False
+        while not sorted:
+            sorted = True
+            current = self.cabeza
+            while current.siguiente is not None:
+                if current.valor > current.siguiente.valor:
+                    current.valor, current.siguiente.valor = current.siguiente.valor, current.valor
+                    sorted = False
+                current = current.siguiente
+   
+
+
 """ Nodo y Lista para Sistemas """
 class Sistemas:
 
@@ -87,19 +103,28 @@ class lista_sistemas():
             contador += 1
         return texto
     
-    def gaficar_sistemas(self):
+
+    def graficar_sistemas(self):
         dot = graphviz.Digraph('ListaSistemas')
         tmp = self.cabeza
         contador = 1
 
         while tmp is not None:
-            dot.node(f'{contador}', tmp.verSistemas())
+            # Crear un label en formato HTML para representar una tabla
+            label = f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">'
+            label += f'<TR><TD COLSPAN="2" BGCOLOR="lightgray">{tmp.nombre}</TD></TR>'  # Nombre del sistema
+            label += f'<TR><TD>Altura Máxima: {tmp.altura}</TD></TR>'
+            label += f'<TR><TD>Cantidad de Drones: {tmp.cantidad}</TD></TR>'
+            label += '</TABLE>>'
+
+            dot.node(f'{contador}', label=label, shape='plaintext')
             if tmp.siguiente is not None:
                 dot.edge(f'{contador}', f'{contador+1}')
             tmp = tmp.siguiente
             contador += 1
 
-        dot.render('Lista_sitemas', format='png', view=True)
+        dot.render('Lista_sistemas', format='png', view=True)
+
     
 """ Nodo y Lista para Contenidos """
 class Contenidos:
@@ -116,6 +141,7 @@ class lista_contenidos():
     
     def __init__(self):
         self.cabeza = None
+        self.valor = None
 
     def insertar_contenido(self, contenido):
         nuevo = Contenidos(contenido)
@@ -134,25 +160,31 @@ class lista_contenidos():
             texto += tmp.verContenido()
             tmp = tmp.siguiente
         return texto
+    
+    
+
+
 
 """ Nodo y Lista para Alturas """
 class Alturas:
 
-    def __init__(self, valor, altura):
+    def __init__(self, valor, altura, nombre):
         self.valor = valor
         self.altura = altura
+        self.nombre = nombre
         self.siguiente = None
 
     def verAlturas(self):
-        return str(self.valor) + "\n" + "Altura: " + str(self.altura)
+        return str(self.valor) + "\n" + "Altura: " + str(self.altura) + "\n" + str(self.nombre) + "\n"
+    
     
 class lista_alturas():
 
     def __init__(self):
         self.cabeza = None
 
-    def insertar_alturas(self, valor, altura):
-        nuevo = Alturas(valor, altura)
+    def insertar_alturas(self, valor, altura, nombre):
+        nuevo = Alturas(valor, altura, nombre)
         if self.cabeza is None:
             self.cabeza = nuevo
         else:
@@ -169,6 +201,25 @@ class lista_alturas():
             tmp = tmp.siguiente
         return texto
 
+    def graficar_alturas(self):
+        dot = graphviz.Digraph('Contenido')
+        tmp = self.cabeza
+        contador = 1
+
+        while tmp is not None:
+            # Crear un label en formato HTML para representar una tabla
+            label = f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">'
+            label += f'<TR><TD COLSPAN="2" BGCOLOR="lightgray">{tmp.nombre}</TD></TR>'  # Nombre del dron
+            label += f'<TR><TD>{tmp.altura}</TD></TR>'  # Instrucción
+            label += '</TABLE>>'
+
+            dot.node(f'{contador}', label=label, shape='plaintext')
+            if tmp.siguiente is not None:
+                dot.edge(f'{contador}', f'{contador+1}')
+            tmp = tmp.siguiente
+            contador += 1
+
+        dot.render('Lista_contenidos', format='png', view=True)
 
 """ Nodo y Lista para Mensajes """
 class Mensajes:
@@ -187,6 +238,7 @@ class lista_mensajes():
     def __init__(self):
         self.cabeza = None
 
+
     def insertar_mensajes(self, valor, mensaje):
         nuevo = Mensajes(valor, mensaje)
         if self.cabeza is None:
@@ -204,6 +256,21 @@ class lista_mensajes():
             texto += tmp.verMensajes()
             tmp = tmp.siguiente
         return texto
+    
+    def gaficar_mensajes(self):
+        dot = graphviz.Digraph('Mensajes')
+        tmp = self.cabeza
+        contador = 1
+
+        while tmp is not None:
+            dot.node(f'{contador}', tmp.verMensajes())
+            if tmp.siguiente is not None:
+                dot.edge(f'{contador}', f'{contador+1}')
+            tmp = tmp.siguiente
+            contador += 1
+
+        dot.render('Lista_mensajes', format='png', view=True)
+    
 
 
 """ Nodo y Lista para Instrucciones """
@@ -240,3 +307,23 @@ class lista_instrucciones():
             texto += tmp.verInstrucciones()
             tmp = tmp.siguiente
         return texto
+    
+    def graficar_instrucciones(self):
+        dot = graphviz.Digraph('Instrucciones')
+        tmp = self.cabeza
+        contador = 1
+
+        while tmp is not None:
+            # Crear un label en formato HTML para representar una tabla
+            label = f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">'
+            label += f'<TR><TD COLSPAN="2" BGCOLOR="lightgray">{tmp.valor}</TD></TR>'  # Nombre del dron
+            label += f'<TR><TD>{tmp.instruccion}</TD></TR>'  # Instrucción
+            label += '</TABLE>>'
+
+            dot.node(f'{contador}', label=label, shape='plaintext')
+            if tmp.siguiente is not None:
+                dot.edge(f'{contador}', f'{contador+1}')
+            tmp = tmp.siguiente
+            contador += 1
+
+        dot.render('Lista_instrucciones', format='png', view=True)
