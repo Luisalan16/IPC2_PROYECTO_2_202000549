@@ -9,7 +9,7 @@ class lista_sis():
         self.Ventana.destroy()
 
     def graficar(self):
-        self.Sistema.graficar_sistemas()
+        self.Altura.graficar_sistema()
 
     def __init__(self, Sistema):
 

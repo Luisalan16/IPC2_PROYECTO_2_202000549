@@ -17,7 +17,10 @@ class GestionDrones:
         print(mi_lista.print_drones())
 
     def graficar_lista(self):
-        self.Dron.gaficar_drones()
+        self.Dron.graficar_drones()
+    
+    def graficar_sis(self):
+        self.Altura.graficar_sistema()
     
     def graficar_contenido(self):
         self.Altura.graficar_alturas()

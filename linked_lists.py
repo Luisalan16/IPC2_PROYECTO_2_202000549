@@ -35,19 +35,27 @@ class lista_drones():
             contador += 1
         return texto
     
-    def gaficar_drones(self):
+    def graficar_drones(self):
         dot = graphviz.Digraph('ListaDrones')
         tmp = self.cabeza
-        contador = 1
 
+        # Crear un label en formato HTML para representar una tabla
+        label = "<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0' CELLPADDING='4'>"
+        
         while tmp is not None:
-            dot.node(f'{contador}', tmp.verDron())
-            if tmp.siguiente is not None:
-                dot.edge(f'{contador}', f'{contador+1}')
+            # Agregar una fila a la tabla para cada dron
+            label += f"<TR><TD>{tmp.verDron()}</TD></TR>"
             tmp = tmp.siguiente
-            contador += 1
-
+        
+        label += "</TABLE>>"
+        
+        # Crear un nodo con el label de la tabla
+        dot.node('tabla', label=label, shape='plaintext')
+        
+        # Renderizar y mostrar el gráfico
         dot.render('Lista_drones', format='png', view=True)
+
+
 
     def ordenar_alfabeticamente(self):
         if self.cabeza is None:
@@ -177,6 +185,8 @@ class Alturas:
     def verAlturas(self):
         return str(self.valor) + "\n" + "Altura: " + str(self.altura) + "\n" + str(self.nombre) + "\n"
     
+    def vercont(self):
+        return str(self.nombre) + "\n" + str(self.altura)
     
 class lista_alturas():
 
@@ -204,22 +214,41 @@ class lista_alturas():
     def graficar_alturas(self):
         dot = graphviz.Digraph('Contenido')
         tmp = self.cabeza
-        contador = 1
+
+        # Comenzar la definición de la tabla con etiquetas HTML
+        label = "<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0' CELLPADDING='4'>"
 
         while tmp is not None:
-            # Crear un label en formato HTML para representar una tabla
-            label = f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0">'
-            label += f'<TR><TD COLSPAN="2" BGCOLOR="lightgray">{tmp.nombre}</TD></TR>'  # Nombre del dron
-            label += f'<TR><TD>{tmp.altura}</TD></TR>'  # Instrucción
-            label += '</TABLE>>'
-
-            dot.node(f'{contador}', label=label, shape='plaintext')
-            if tmp.siguiente is not None:
-                dot.edge(f'{contador}', f'{contador+1}')
+            label += f'<TR><TD>{tmp.nombre}</TD></TR>'  # Nombre del dron como título de columna
+            label += f'<TR><TD>{tmp.altura}</TD></TR>'  # Altura como valor en la columna
             tmp = tmp.siguiente
-            contador += 1
 
+        # Cerrar la definición de la tabla con etiquetas HTML
+        label += '</TABLE>>'
+
+        # Agregar la tabla como un nodo con etiquetas HTML
+        dot.node('tabla', label=label, shape='plaintext')
+
+        # Renderizar y mostrar el gráfico
         dot.render('Lista_contenidos', format='png', view=True)
+    
+    def graficar_sistema(drones, alturas):
+        dot = graphviz.Digraph('Alturas')
+        
+        # Agregar los nombres de los drones como columnas
+        for dron in drones:
+            dot.node(dron, dron)
+        
+        # Agregar las alturas y sus letras como filas
+        for altura_valor, altura_letra in alturas.items():
+            dot.node(altura_valor, altura_letra)
+        
+        # Crear conexiones entre los drones y las alturas correspondientes
+        for dron in drones:
+            for altura_valor, altura_letra in alturas.items():
+                dot.edge(dron, altura_valor)
+        
+        dot.render('Grafico_sistemas', format='png', view=True)
 
 """ Nodo y Lista para Mensajes """
 class Mensajes:

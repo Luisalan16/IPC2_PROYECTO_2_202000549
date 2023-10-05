@@ -1,7 +1,0 @@
-digraph ListaSistemas {
-	1 [label="Nombre: SD1;	Altura: 7;	Cantidad: 3
-"]
-	1 -> 2
-	2 [label="Nombre: SDF;	Altura: 1;	Cantidad: 4
-"]
-}

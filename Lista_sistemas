@@ -1,5 +1,0 @@
-digraph ListaSistemas {
-	1 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgray">SD1</TD></TR><TR><TD>Altura Máxima: 7</TD></TR><TR><TD>Cantidad de Drones: 3</TD></TR></TABLE>> shape=plaintext]
-	1 -> 2
-	2 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgray">SDF</TD></TR><TR><TD>Altura Máxima: 1</TD></TR><TR><TD>Cantidad de Drones: 4</TD></TR></TABLE>> shape=plaintext]
-}
